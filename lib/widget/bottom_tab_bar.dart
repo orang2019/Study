@@ -35,29 +35,3 @@ class BottomTabBar extends GetView<BottomTabBarController> {
   }
 }
 
-class RootScaffold extends StatelessWidget{
-
-  // 탭별 화면
-  static List<Widget> tabPages = <Widget>[
-
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-
-    // 페이지 전환을 위한 MyBottomNavgationBarController 인스턴스화 (의존성 주입)
-    // Get.put : 수명이 페이지와 같음
-    Get.put(BottomTabBarController());
-
-    return Scaffold(
-      backgroundColor: context.theme.colorScheme.background,
-
-      body: Obx(() => SafeArea(
-          child:
-              // static 변수를 이용해 컨트롤러 접근
-              tabPages[BottomTabBarController.to.selectedIndex.value])),
-       // 2번에서 만든 BottomNavgationBar 컴포넌트
-      bottomNavigationBar: BottomTabBar(),
-    );
-  }
-}

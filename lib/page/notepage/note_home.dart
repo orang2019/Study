@@ -7,14 +7,9 @@ class NoteHome extends StatelessWidget {
   const NoteHome({super.key});
 
   @override
-  
   Widget build(BuildContext context) {
-
-    Get.put(BottomTabBarController());
-
-    return Scaffold(
-      body: Text("Note"),
-      bottomNavigationBar: BottomTabBar(),
+    return Container(
+      child: Text("Note"),
     );
   }
 }

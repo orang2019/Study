@@ -5,7 +5,7 @@ import 'routes/page_list.dart';
 void main(){
   runApp(
     GetMaterialApp(
-      initialRoute: Routes.noteHome, 
+      initialRoute: Routes.routePAge, 
       getPages: PageList.pages,
     )
   );
