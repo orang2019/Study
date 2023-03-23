@@ -20,7 +20,7 @@ class BottomTabBar extends GetView<BottomTabBarController> {
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
                 icon: Icon(Icons.add),
-                label: "tap1"),
+                label: "tap123"),
             BottomNavigationBarItem(
                 icon: Icon(Icons.add),
                 label: "tap2"),
