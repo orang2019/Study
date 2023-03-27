@@ -12,12 +12,12 @@ class PageList {
     GetPage(name: Routes.noteHome, page: ()=> NoteHome()),
     GetPage(name: Routes.quizHome, page: () => QuizHome()),
     GetPage(name: Routes.settingsHome, page: ()=> SettingsHome()),
-    GetPage(name: Routes.routePAge, page: ()=>RoutePage()),
+    GetPage(name: Routes.routePage, page: ()=>RoutePage()),
   ];
 }
 
 abstract class Routes{
-  static const routePAge ='/';
+  static const routePage ='/';
    static const calendarHome ='/calendar_home_page';
    static const noteHome = '/note_home_page';
    static const settingsHome = '/settings_home_page';
