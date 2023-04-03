@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'routes/page_list.dart';
+import 'package:study_app/model/category.dart';
+import 'package:study_app/repository/box_repository.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main(){
+void main() async{
+
+  await Hive.initFlutter();
+  Hive.registerAdapter(CategoryAdapter());
+  await BoxRepository.openBox();
   runApp(
     GetMaterialApp(
       initialRoute: Routes.routePage,
