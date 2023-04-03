@@ -24,7 +24,6 @@ class RoutePage extends StatelessWidget{
 
     return Scaffold(
       backgroundColor: context.theme.colorScheme.background,
-      appBar: AppBar(title: Text("Study App Demo")),
       body: Obx(() => SafeArea(
           child:
               // static 변수를 이용해 컨트롤러 접근

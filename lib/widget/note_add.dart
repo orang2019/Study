@@ -6,66 +6,127 @@ import 'package:get/get.dart';
 import 'package:study_app/widget/category_add.dart';
 import 'package:study_app/controller/note_add_controller.dart';
 
+import '../constants.dart';
+import '../constants.dart';
+
 class NoteAdd extends StatelessWidget {
-  const NoteAdd({Key? key}) : super(key: key);
+  NoteAdd({Key? key}) : super(key: key);
+
+  List<String> dropdownList = ['1', '2', '3'];
+  String selectedDropdown = '1';
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: context.height * 0.8,
-      child: Center(
+    return Container(
+      color: Colors.white,
+      height: context.height * 0.9,
+      child: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            const Text('노트 추가'),
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+           Container(
+                margin: const EdgeInsets.all(defaultMargin),
+                child: const Text('노트 추가',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,),),
+            ),
+            Center(
+              child: Container(
+                    padding: const EdgeInsets.all(defaultPadding),
+                    height: context.height* 0.5,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Container(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start, // 왼쪽 정렬
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text('카테고리',style: TextStyle(fontSize:16,fontWeight: FontWeight.bold,),),
+                                // DropdownButton(
+                                //   value: selectedDropdown,
+                                //   items: dropdownList.map((String item) {
+                                //     return DropdownMenuItem<String>(
+                                //       child: Text('$item'),
+                                //       value: item,
+                                //     );
+                                //   }).toList(),
+                                //   onChanged: (dynamic value) {
+                                //     setState(() {
+                                //       selectedDropdown = value;
+                                //     });
+                                //   },
+                                // ),
 
-            DropdownButton(
-                value : selectedCategory, // 디폴트 = 선택값
-                items: categoryList.map((item) { //전체 카테고리 list
-                  return DropdownMenuItem(
-                    value: item,
-                    child: Text('$item'),);
-                }).toList(),
-                onChanged: (i){NoteAddController.to.changeCategory(i);}
+                                // DropdownButton(
+                                //     value : '디폴트카테고리', // 디폴트 = 선택값
+                                //     items: ['카테고리1','카테고리2'].map((item) { //전체 카테고리 list
+                                //       return DropdownMenuItem(
+                                //         value: item,
+                                //         child: Text('$item'),);
+                                //     }).toList(),
+                                //     onChanged: (i){NoteAddController.to.changeCategory(i);}),
+
+                                ElevatedButton(
+
+                                  style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.white),shadowColor: MaterialStatePropertyAll(Colors.transparent)),
+                                  onPressed: (){
+                                    showModalBottomSheet(
+                                        isDismissible: false, // 바깥영역 눌러도 안사라짐
+                                        isScrollControlled: true,
+                                        context: context,
+                                        builder:(BuildContext context) => const CategoryAdd());
+                                  },
+                                  child: Container(
+                                      alignment: Alignment.center,
+                                      child: const Text('+ 카테고리 추가하기',style: TextStyle(color: Colors.black,fontSize:16,fontWeight: FontWeight.bold ))),
+                                ),
+                              ],
+                            ),
+                          ),
+
+
+
+
+                          Container(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start, // 왼쪽 정렬
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text('노트이름',style: TextStyle(fontSize:16,fontWeight: FontWeight.bold,),),
+                                  TextField(
+                                    decoration: const InputDecoration(
+                                        enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(),
+                                        ),
+                                        hintText: '노트이름을 입력하세요',
+                                        hintStyle:  TextStyle(fontSize:16,color: Color(0xffA3A3A3))),
+                                    // controller: NoteAddController.to.noteTextEditingController,
+                                    controller: TextEditingController(),
+                                  ),
+                                ],
+                              )),
+
+                        ],
+                      ),
+              ),
             ),
 
-            ElevatedButton(
-              onPressed: (){
-                showModalBottomSheet(
-                    isDismissible: false, // 바깥영역 눌러도 안사라짐
-                    isScrollControlled: true,
-                    context: context,
-                    builder:(BuildContext context) => const CategoryAdd());
-              },
-              child: const Text('+ 카테고리 추가하기'),
-            ),
 
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                width: context.width,
+                height: 48,
+                margin: const EdgeInsets.all(defaultMargin),
+                child: ElevatedButton(
+                  style: ButtonStyle(backgroundColor:MaterialStateProperty.all(beforeClickButton),shadowColor: const MaterialStatePropertyAll(Colors.transparent) ),
+                  child: const Text('추가하기',style: TextStyle(color: Colors.white,fontSize:16,fontWeight: FontWeight.bold )),
+                  onPressed: () => NoteAddController.to.validateNoteData()? NoteAddController.to.NoteAddCreation() : null,
 
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text('노트 이름'),
-                TextField(
-                  decoration: const InputDecoration(
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(),
-                    ),
-                    hintText: '노트 이름을 입력하세요',
-                    hintStyle: TextStyle(color: Color(0xffA3A3A3),),), //grey400
-                  controller: NoteAddController.to.noteTextEditingController,
-                ),],
-            ),
-
-            ElevatedButton(
-              child: const Text('추가하기'),
-
-              onPressed: () => NoteAddController.to.validateNoteData()? NoteAddController.to.NoteAddCreation() : null,
+                ),
+              ),
             ),
           ],
         ),
-
       ),
     );
   }

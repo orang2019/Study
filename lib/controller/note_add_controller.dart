@@ -5,18 +5,18 @@ class NoteAddController extends GetxController{
   static NoteAddController get to => Get.find();
 
 
-  selectedCategory = ; // 디폴트 카테고리
+  String selectedCategory = '카테고리'.obs as String; // 디폴트 카테고리
 
   void changeCategory(i){
     selectedCategory = i;
   }
 
-  @override
-  void onInit() {
-    // TODO: implement onInit
-    super.onInit();
-    categoryList = ; // 전체 카테고리
-  }
+  // @override
+  // void onInit() {
+  //   // TODO: implement onInit
+  //   super.onInit();
+  //   categoryList = [\]; // 전체 카테고리
+  // }
 
   final noteTextEditingController = TextEditingController();
 
