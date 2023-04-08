@@ -7,4 +7,4 @@ Color contentsR = const Color(0xffA3A3A3); //grey400
 
 // etc
 const double defaultMargin = 50.0;
-const double defaultPadding = 20.0;
+const double defaultPadding = 30.0;
