@@ -1,19 +1,27 @@
-/// 새로운 노트이름 추가하기
-/// 새로운 카테고리이름 추가하기 위해 버튼을 누르면, CategoryAdd 나타나기
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:study_app/controller/category_controller.dart';
 import 'package:study_app/widget/category_add.dart';
 import 'package:study_app/controller/note_add_controller.dart';
 
 import '../constants.dart';
-
-class NoteAdd extends StatelessWidget {
+class NoteAdd extends StatefulWidget{
   NoteAdd({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  State<NoteAdd> createState() => _NoteAddState();
+}
+
+class _NoteAddState extends State<NoteAdd> {
+  final controller = Get.put(CategoryController());
+  var _selectedCate;
+
+  @override
+  Widget build(BuildContext context) {   
+    _selectedCate = controller.categoryCount==0?'Category':controller.observableBox.getAt(0).categoryName;
+    //final controller = Get.put(CategoryController());
+
+    return GetBuilder<CategoryController>(builder: (cont)=>Container(
       color: Colors.white,
       height: context.height * 0.9,
       child: SingleChildScrollView(
@@ -37,6 +45,9 @@ class NoteAdd extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text('카테고리',style: TextStyle(fontSize:16,fontWeight: FontWeight.bold,),),
+
+                          dropdown(),
+                          
                           ElevatedButton(
                             style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.white),shadowColor: MaterialStatePropertyAll(Colors.transparent)),
                             onPressed: (){
@@ -94,6 +105,33 @@ class NoteAdd extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ));
+  }
+
+  dropdown(){
+
+    int count = controller.categoryCount.value;
+    List<dynamic> categoryList = [];
+    for(int i=0;i<count;i++){
+      categoryList.add(controller.observableBox.getAt(i).categoryName);
+    }
+    
+    if(count==0){
+      return Text("카테고리 없음");
+    }
+    else{
+      return DropdownButton(
+        value: _selectedCate,
+        items: categoryList.map((item) {
+          return DropdownMenuItem(
+            value: item,
+            child: Text('$item'),
+          );
+        }).toList(), 
+        onChanged: (e){setState(() {
+          _selectedCate = e;
+        });}
+      );
+    }
   }
 }

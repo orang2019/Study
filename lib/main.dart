@@ -10,6 +10,8 @@ void main() async{
   await Hive.initFlutter();
   Hive.registerAdapter(CategoryAdapter());
   await BoxRepository.openBox();
+
+
   runApp(
     GetMaterialApp(
       initialRoute: Routes.routePage,
@@ -25,8 +27,6 @@ void main() async{
             )
         ),
 
-        // bold사용법
-        // Text("안녕하세요", style: TextStyle(fontFamily: "SpoqaHanSansNeo", fontWeight: FontWeight.bold))
         textTheme: const TextTheme(
           titleLarge: TextStyle(fontFamily: 'Pretendard',fontSize:24),
           titleMedium: TextStyle(fontFamily: 'Pretendard',fontSize:20),
