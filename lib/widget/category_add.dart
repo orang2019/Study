@@ -50,10 +50,14 @@ class _CategoryAddState extends State<CategoryAdd> {
                 margin: const EdgeInsets.all(defaultMargin),
                 child: const Text('카테고리 추가',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,),),),
               Container(
+                padding: const EdgeInsets.all(defaultPadding),
+                height: context.height* 0.5,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text('카테고리 이름',style: TextStyle(fontSize:16,fontWeight: FontWeight.bold,),),
-                    TextField(
+                    TextFormField(
+
                       decoration: const InputDecoration(
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(),
@@ -61,55 +65,76 @@ class _CategoryAddState extends State<CategoryAdd> {
                           hintText: '카테고리 이름을 입력하세요',
                           hintStyle:  TextStyle(fontSize:16,color: Color(0xffA3A3A3))),
                       controller: TextEditingController(),
+                      validator: (value){
+                        if(value==null||value.isEmpty){
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },),
+                    const Padding(padding: EdgeInsets.all(columnPadding)),
+                    const Text('색상',style: TextStyle(fontSize:16,fontWeight: FontWeight.bold,),),
+                    const Padding(padding: EdgeInsets.all(childrenPadding)),
+
+                    Align(
+                      alignment: Alignment.center,
+                      child: SizedBox(
+                        width: 350,
+                        height: 350,
+                        child: GridView.builder(
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 6,
+                            mainAxisSpacing: 0.0,
+                            crossAxisSpacing: 0.0,
+                            childAspectRatio: 1.0,
+                          ),
+                          itemCount:eventColors.length,
+                          itemBuilder:  (context, index) {
+                            return GestureDetector(
+                              onTap: (){
+                                setState(() {
+                                  selectedColorIndex = index;
+                                });},
+                              child: Container(
+                                foregroundDecoration: BoxDecoration(
+                                  border: index == selectedColorIndex
+                                      ? Border.all(
+                                      color: Colors.black.withOpacity(0.3),
+                                      width: 4)
+                                      : null,
+                                  shape: BoxShape.rectangle,
+                                  color: eventColors[index],
+                                ),
+                                width: 44,
+                                height: 44,
+                              ),
+                            );
+                          },),
+                      ),
                     ),
-                  ],
+
+
+                  ],),),
+
+
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  width: context.width,
+                  height: 48,
+                  margin: const EdgeInsets.all(defaultMargin),
+                  child: ElevatedButton(
+                    style: ButtonStyle(backgroundColor:MaterialStateProperty.all(beforeClickButton),shadowColor: const MaterialStatePropertyAll(Colors.transparent) ),
+                    child: const Text('추가하기',style: TextStyle(color: Colors.white,fontSize:16,fontWeight: FontWeight.bold )),
+
+                    //todo
+                    onPressed: () =>
+                      // controller.createCategory(category: Category(categoryName: TextEditingController().text, categoryColorIndex: categoryColorText));
+                      Navigator.pop(context)
+                  ),
                 ),
               ),
-              Container(
-                child: Column(
-                  children: [
-                    const Text('색상',style: TextStyle(fontSize:16,fontWeight: FontWeight.bold,),),
-                    Container(
-                      width: 300,
-                      height: 300,
-                      child: GridView.builder(
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 6,
-                          mainAxisSpacing: 0.0,
-                          crossAxisSpacing: 0.0,
-                          childAspectRatio: 1.0,
-                        ),
-                        itemCount:eventColors.length,
-                        itemBuilder:  (context, index) {
-                          return GestureDetector(
-                            onTap: (){
-                              setState(() {
-                                  selectedColorIndex = index;
-                              });},
-                            child: Container(
-                              foregroundDecoration: BoxDecoration(
-                                border: index == selectedColorIndex
-                                    ? Border.all(
-                                    color: Colors.black.withOpacity(0.3),
-                                    width: 4)
-                                    : null,
-                                shape: BoxShape.rectangle,
-                                color: eventColors[index],
-                              ),
-                              width: 44,
-                              height: 44,
-                            ),
-                          );
-                        },),
-                    )
-                  ],
-                ),
-
-              )
             ],
           ),
-
-
         ),
     ));
   }

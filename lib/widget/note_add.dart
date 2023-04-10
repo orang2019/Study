@@ -27,119 +27,124 @@ class _NoteAddState extends State<NoteAdd> {
     return GetBuilder<CategoryController>(builder: (cont)=>Container(
       color: Colors.white,
       height: context.height * 0.9,
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-                margin: const EdgeInsets.all(defaultMargin),
-                child: const Text('노트 추가',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,),),
-            ),
-            Container(
-                padding: const EdgeInsets.all(defaultPadding),
-                height: context.height* 0.5,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text('카테고리',style: TextStyle(fontSize:16,fontWeight: FontWeight.bold,),),
+      child: Flexible(
+        child: Card(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                  margin: const EdgeInsets.all(defaultMargin),
+                  child: const Text('노트 추가',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,),),
+              ),
+              Container(
+                  padding: const EdgeInsets.all(defaultPadding),
+                  height: context.height* 0.5,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('카테고리',style: TextStyle(fontSize:16,fontWeight: FontWeight.bold,),),
 
-                          dropdown(),
-                          
-                          ElevatedButton(
-                            style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.white),shadowColor: MaterialStatePropertyAll(Colors.transparent)),
-                            onPressed: (){
-                              showModalBottomSheet(
-                                isDismissible: false, // 바깥영역 눌러도 안사라짐
-                                isScrollControlled: true,
-                                context: context,
-                                builder:(BuildContext context) => const CategoryAdd()
-                              );
-                            },
-                            child: Container(
-                                alignment: Alignment.center,
-                                child: const Text('+ 카테고리 추가하기',
-                                style: TextStyle(color: Colors.black,fontSize:16,fontWeight: FontWeight.bold ))
+                            dropdown(),
+                            
+                            ElevatedButton(
+                              style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.white),shadowColor: MaterialStatePropertyAll(Colors.transparent)),
+                              onPressed: (){
+                                showModalBottomSheet(
+                                  isDismissible: false, // 바깥영역 눌러도 안사라짐
+                                  isScrollControlled: true,
+                                  context: context,
+                                  builder:(BuildContext context) => const CategoryAdd()
+                                );
+                              },
+                              child: Container(
+                                  alignment: Alignment.center,
+                                  child: const Text('+ 카테고리 추가하기',
+                                  style: TextStyle(color: Colors.black,fontSize:16,fontWeight: FontWeight.bold ))
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start, // 왼쪽 정렬
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text('노트이름',style: TextStyle(fontSize:16,fontWeight: FontWeight.bold,),),
-                          TextField(
-                            decoration: const InputDecoration(
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(),
-                                ),
-                                hintText: '노트이름을 입력하세요',
-                                hintStyle:  TextStyle(fontSize:16,color: Color(0xffA3A3A3))),
-                            controller: TextEditingController(),
-                          ),
-                        ],
+                      const Padding(padding: EdgeInsets.all(columnPadding)),
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start, // 왼쪽 정렬
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('노트이름',style: TextStyle(fontSize:16,fontWeight: FontWeight.bold,),),
+                            TextField(
+                              decoration: const InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(),
+                                  ),
+                                  hintText: '노트이름을 입력하세요',
+                                  hintStyle:  TextStyle(fontSize:16,color: Color(0xffA3A3A3))),
+                              controller: TextEditingController(),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start, // 왼쪽 정렬
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text('복습주기',style: TextStyle(fontSize:16,fontWeight: FontWeight.bold,),),
-                          RadioListTile(
-                            title: const Text('1 / 4 / 7 / 14 / 21일'),
-                            value: true,
-                            groupValue: isReview,
-                            onChanged: (value) {
-                              setState(() {
-                                isReview = value!;
-                              });
-                            },
-                          ),
-                          RadioListTile(
-                            title: const Text('복습하지 않기'),
-                            value: false,
-                            groupValue: isReview,
-                            onChanged: (value) {
-                              setState(() {
-                                isReview = value!;
-                              });
-                            },
-                          ),
+                      const Padding(padding: EdgeInsets.all(columnPadding)),
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start, // 왼쪽 정렬
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text('복습주기',style: TextStyle(fontSize:16,fontWeight: FontWeight.bold,),),
+                            const Padding(padding: EdgeInsets.all(childrenPadding)),
+                            RadioListTile(
+                              title: const Text('1 / 4 / 7 / 14 / 21일',style: TextStyle(fontSize: 16)),
+                              value: true,
+                              groupValue: isReview,
+                              onChanged: (value) {
+                                setState(() {
+                                  isReview = value!;
+                                });
+                              },
+                            ),
+                            RadioListTile(
+                              title: const Text('복습하지 않기',style: TextStyle(fontSize: 16)),
+                              value: false,
+                              groupValue: isReview,
+                              onChanged: (value) {
+                                setState(() {
+                                  isReview = value!;
+                                });
+                              },
+                            ),
 
 
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
 
 
-                  ],
+                    ],
+                  ),
+                ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  width: context.width,
+                  height: 48,
+                  margin: const EdgeInsets.all(defaultMargin),
+                  child: ElevatedButton(
+                    style: ButtonStyle(backgroundColor:MaterialStateProperty.all(beforeClickButton),shadowColor: const MaterialStatePropertyAll(Colors.transparent) ),
+                    child: const Text('추가하기',style: TextStyle(color: Colors.white,fontSize:16,fontWeight: FontWeight.bold )),
+
+                    //todo
+                    // onPressed: () => NoteAddController.to.validateNoteData()? NoteAddController.to.NoteAddCreation() : null,
+                    onPressed: () => {},
+                  ),
                 ),
               ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                width: context.width,
-                height: 48,
-                margin: const EdgeInsets.all(defaultMargin),
-                child: ElevatedButton(
-                  style: ButtonStyle(backgroundColor:MaterialStateProperty.all(beforeClickButton),shadowColor: const MaterialStatePropertyAll(Colors.transparent) ),
-                  child: const Text('추가하기',style: TextStyle(color: Colors.white,fontSize:16,fontWeight: FontWeight.bold )),
-
-                  //todo
-                  // onPressed: () => NoteAddController.to.validateNoteData()? NoteAddController.to.NoteAddCreation() : null,
-                  onPressed: () => {},
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     ));
@@ -154,7 +159,7 @@ class _NoteAddState extends State<NoteAdd> {
     }
     
     if(count==0){
-      return Text("카테고리 없음");
+      return const Text("카테고리 없음");
     }
     else{
       return DropdownButton(
