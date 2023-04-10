@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:study_app/controller/category_controller.dart';
+import 'package:study_app/controller/note_controller.dart';
 import 'package:get/get.dart';
 import 'package:study_app/model/category.dart';
+import 'package:study_app/constants.dart';
 
 //변수
 const eventColors = [
@@ -11,6 +12,7 @@ const eventColors = [
   Color(0xffFED36E),
   Color(0xffC4EEC3),
   Color(0xff89DD89),
+  Color(0xffD4E7F1),
   Color(0xff92C3DF),
   Color(0xffF7F3FB),
   Color(0xffF0E2FE),
@@ -24,51 +26,133 @@ bool validateNoteData() {
 }
 
 
-class CategoryAdd extends StatelessWidget {
+class CategoryAdd extends StatefulWidget {
   const CategoryAdd({Key? key}) : super(key: key);
 
+  @override
+  State<CategoryAdd> createState() => _CategoryAddState();
+}
+
+class _CategoryAddState extends State<CategoryAdd> {
+  final controller = Get.put(NoteAddController());
+  int selectedColorIndex = 0;
 
   @override
-  
   Widget build(BuildContext context) {
-    TextEditingController categoryNameController = TextEditingController();
-    final controller = Get.put(CategoryController());
-
-    return Material(
-          child: Form(
-            child: Padding(
-              padding: const EdgeInsets.all(14),
-              child: ListView(
-                children: [
-                  TextFormField(
-                    decoration: const InputDecoration(hintText: "Category Name"),
-                    controller: categoryNameController,
-                    validator: (value){
-                      if(value==null||value.isEmpty){
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  ElevatedButton(
-                    onPressed: (){
-                      String categoryNameText = categoryNameController.text;
-                      int categoryColorText = 1;
-                      controller.createCategory(category: Category(categoryName: categoryNameText, categoryColorIndex: categoryColorText));
-                      Navigator.pop(context);
-                    },
-                    child: const Text("Submit"),
-                  ),
-                ],
+    return GetBuilder<NoteAddController>(builder: (cont)=>Container(
+        color: Colors.white,
+        height: context.height * 0.9,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                margin: const EdgeInsets.all(defaultMargin),
+                child: const Text('카테고리 추가',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,),),),
+              Container(
+                child: Column(
+                  children: [
+                    const Text('카테고리 이름',style: TextStyle(fontSize:16,fontWeight: FontWeight.bold,),),
+                    TextField(
+                      decoration: const InputDecoration(
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(),
+                          ),
+                          hintText: '카테고리 이름을 입력하세요',
+                          hintStyle:  TextStyle(fontSize:16,color: Color(0xffA3A3A3))),
+                      controller: TextEditingController(),
+                    ),
+                  ],
+                ),
               ),
-            ),
+              Container(
+                child: Column(
+                  children: [
+                    const Text('색상',style: TextStyle(fontSize:16,fontWeight: FontWeight.bold,),),
+                    Container(
+                      width: 300,
+                      height: 300,
+                      child: GridView.builder(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 6,
+                          mainAxisSpacing: 0.0,
+                          crossAxisSpacing: 0.0,
+                          childAspectRatio: 1.0,
+                        ),
+                        itemCount:eventColors.length,
+                        itemBuilder:  (context, index) {
+                          return GestureDetector(
+                            onTap: (){
+                              setState(() {
+                                  selectedColorIndex = index;
+                              });},
+                            child: Container(
+                              foregroundDecoration: BoxDecoration(
+                                border: index == selectedColorIndex
+                                    ? Border.all(
+                                    color: Colors.black.withOpacity(0.3),
+                                    width: 4)
+                                    : null,
+                                shape: BoxShape.rectangle,
+                                color: eventColors[index],
+                              ),
+                              width: 44,
+                              height: 44,
+                            ),
+                          );
+                        },),
+                    )
+                  ],
+                ),
+
+              )
+            ],
           ),
-        );
+
+
+        ),
+    ));
   }
 }
+
+    
+    
+    
+
+    // return Material(
+    //       child: Form(
+    //         child: Padding(
+    //           padding: const EdgeInsets.all(14),
+    //           child: ListView(
+    //             children: [
+    //               TextFormField(
+    //                 decoration: const InputDecoration(hintText: "Category Name"),
+    //                 controller: categoryNameController,
+    //                 validator: (value){
+    //                   if(value==null||value.isEmpty){
+    //                     return 'Please enter some text';
+    //                   }
+    //                   return null;
+    //                 },
+    //               ),
+    //               const SizedBox(
+    //                 height: 20.0,
+    //               ),
+    //               ElevatedButton(
+    //                 onPressed: (){
+    //                   String categoryNameText = categoryNameController.text;
+    //                   int categoryColorText = 1;
+    //                   controller.createCategory(category: Category(categoryName: categoryNameText, categoryColorIndex: categoryColorText));
+    //                   Navigator.pop(context);
+    //                 },
+    //                 child: const Text("Submit"),
+    //               ),
+    //             ],
+    //           ),
+    //         ),
+    //       ),
+    //     );
+
 // addCategory(){
 //     titleController.clear();
 //     showDialog(context: context, builder: (context){

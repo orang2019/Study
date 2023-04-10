@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:study_app/controller/category_controller.dart';
 import 'package:study_app/widget/category_add.dart';
-import 'package:study_app/controller/note_add_controller.dart';
+import 'package:study_app/controller/note_controller.dart';
 
 import '../constants.dart';
 
@@ -132,7 +132,10 @@ class _NoteAddState extends State<NoteAdd> {
                 child: ElevatedButton(
                   style: ButtonStyle(backgroundColor:MaterialStateProperty.all(beforeClickButton),shadowColor: const MaterialStatePropertyAll(Colors.transparent) ),
                   child: const Text('추가하기',style: TextStyle(color: Colors.white,fontSize:16,fontWeight: FontWeight.bold )),
-                  onPressed: () => NoteAddController.to.validateNoteData()? NoteAddController.to.NoteAddCreation() : null,
+
+                  //todo
+                  // onPressed: () => NoteAddController.to.validateNoteData()? NoteAddController.to.NoteAddCreation() : null,
+                  onPressed: () => {},
                 ),
               ),
             ),
