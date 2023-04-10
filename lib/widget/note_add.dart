@@ -5,6 +5,8 @@ import 'package:study_app/widget/category_add.dart';
 import 'package:study_app/controller/note_add_controller.dart';
 
 import '../constants.dart';
+
+
 class NoteAdd extends StatefulWidget{
   NoteAdd({Key? key}) : super(key: key);
 
@@ -15,6 +17,7 @@ class NoteAdd extends StatefulWidget{
 class _NoteAddState extends State<NoteAdd> {
   final controller = Get.put(CategoryController());
   var _selectedCate;
+  bool isReview = true;
 
   @override
   Widget build(BuildContext context) {   
@@ -32,8 +35,7 @@ class _NoteAddState extends State<NoteAdd> {
                 margin: const EdgeInsets.all(defaultMargin),
                 child: const Text('노트 추가',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,),),
             ),
-            Center(
-              child: Container(
+            Container(
                 padding: const EdgeInsets.all(defaultPadding),
                 height: context.height* 0.5,
                 child: Column(
@@ -41,7 +43,7 @@ class _NoteAddState extends State<NoteAdd> {
                   children: <Widget>[
                     Container(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start, // 왼쪽 정렬
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text('카테고리',style: TextStyle(fontSize:16,fontWeight: FontWeight.bold,),),
@@ -85,10 +87,42 @@ class _NoteAddState extends State<NoteAdd> {
                         ],
                       ),
                     ),
+                    Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start, // 왼쪽 정렬
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('복습주기',style: TextStyle(fontSize:16,fontWeight: FontWeight.bold,),),
+                          RadioListTile(
+                            title: const Text('1 / 4 / 7 / 14 / 21일'),
+                            value: true,
+                            groupValue: isReview,
+                            onChanged: (value) {
+                              setState(() {
+                                isReview = value!;
+                              });
+                            },
+                          ),
+                          RadioListTile(
+                            title: const Text('복습하지 않기'),
+                            value: false,
+                            groupValue: isReview,
+                            onChanged: (value) {
+                              setState(() {
+                                isReview = value!;
+                              });
+                            },
+                          ),
+
+
+                        ],
+                      ),
+                    ),
+
+
                   ],
                 ),
               ),
-            ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
