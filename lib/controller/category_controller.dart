@@ -8,11 +8,10 @@ class CategoryController extends GetxController{
 
   Box get observableBox => _observableBox;
 
-  RxInt get categoryCount => _observableBox.length.obs;
+  int selectedCategoryIndex = 0;
 
   createCategory({required Category category}){
     _observableBox.add(category);
-    //categoryCount.value++;
     update();
   }
 
@@ -23,8 +22,11 @@ class CategoryController extends GetxController{
 
   deleteCategory({required int index}){
     _observableBox.deleteAt(index);
-    //categoryCount.value--;
     update();
   }
 
+  selectIndex(int i){
+    selectedCategoryIndex = i;
+    update();
+  }
 }

@@ -10,10 +10,10 @@ import 'package:study_app/widget/bottom_tab_bar.dart';
 class RoutePage extends StatelessWidget{
 
   static List<Widget> tabPages = <Widget>[
-    NoteHome(),
-    QuizHome(),
-    CalendarHome(),
-    SettingsHome(),
+    const NoteHome(),
+    const QuizHome(),
+    const CalendarHome(),
+    const SettingsHome(),
   ];
 
   @override
@@ -25,10 +25,8 @@ class RoutePage extends StatelessWidget{
     return Scaffold(
       backgroundColor: context.theme.colorScheme.background,
       body: Obx(() => SafeArea(
-          child:
-              // static 변수를 이용해 컨트롤러 접근
-              tabPages[BottomTabBarController.to.selectedIndex.value])),
-       // 2번에서 만든 BottomNavgationBar 컴포넌트
+              child:tabPages[BottomTabBarController.to.selectedIndex.value]
+            )),
       bottomNavigationBar: BottomTabBar(),
     );
   }
