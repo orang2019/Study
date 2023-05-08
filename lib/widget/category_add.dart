@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:study_app/model/category.dart';
 import 'package:study_app/model/color_index.dart';
 
+import '../model/note.dart';
+
 
 class CategoryAdd extends StatelessWidget {
   const CategoryAdd({Key? key}) : super(key: key);
@@ -44,7 +46,8 @@ class CategoryAdd extends StatelessWidget {
                     onPressed: (){
                       String categoryNameText = categoryNameController.text;
                       int categoryColorText = int.parse(categoryColorController.text);
-                      controller.createCategory(category: Category(categoryName: categoryNameText, categoryColorIndex: categoryColorText));
+                      List<Note> temp = [];
+                      controller.createCategory(category: Category(categoryName: categoryNameText, categoryColorIndex: categoryColorText, noteList: temp));
                       Navigator.pop(context);
                     },
                     child: const Text("Submit"),

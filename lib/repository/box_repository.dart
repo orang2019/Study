@@ -2,7 +2,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:study_app/model/category.dart';
 
 class BoxRepository{
-  static const String boxName = "STUDY_DATA";
+  static const String boxName = "STUDY_DATA_2";
 
   static openBox() async => await Hive.openBox<Category>(boxName);
 

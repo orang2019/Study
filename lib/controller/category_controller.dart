@@ -29,4 +29,10 @@ class CategoryController extends GetxController{
     selectedCategoryIndex = i;
     update();
   }
+
+  changeNoteBookMark(int i, int index){
+    print(observableBox.getAt(i).noteList[index].bookMark);
+    observableBox.getAt(i).noteList[index].bookMark =  observableBox.getAt(i).noteList[index].bookMark==true ? false:true;
+    update();
+  }
 }

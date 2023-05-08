@@ -1,38 +1,38 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'category.dart';
+part of 'note.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class CategoryAdapter extends TypeAdapter<Category> {
+class NoteAdapter extends TypeAdapter<Note> {
   @override
-  final int typeId = 1;
+  final int typeId = 2;
 
   @override
-  Category read(BinaryReader reader) {
+  Note read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Category(
-      categoryName: fields[1] as String,
-      categoryColorIndex: fields[2] as int,
-      noteList: (fields[3] as List).cast<Note>(),
+    return Note(
+      noteName: fields[1] as String,
+      bookMark: fields[2] as bool,
+      QAList: (fields[3] as List).cast<QA>(),
     );
   }
 
   @override
-  void write(BinaryWriter writer, Category obj) {
+  void write(BinaryWriter writer, Note obj) {
     writer
       ..writeByte(3)
       ..writeByte(1)
-      ..write(obj.categoryName)
+      ..write(obj.noteName)
       ..writeByte(2)
-      ..write(obj.categoryColorIndex)
+      ..write(obj.bookMark)
       ..writeByte(3)
-      ..write(obj.noteList);
+      ..write(obj.QAList);
   }
 
   @override
@@ -41,7 +41,7 @@ class CategoryAdapter extends TypeAdapter<Category> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CategoryAdapter &&
+      other is NoteAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

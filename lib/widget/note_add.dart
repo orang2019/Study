@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:study_app/controller/category_controller.dart';
+import 'package:study_app/model/note.dart';
 import 'package:study_app/widget/category_add.dart';
 
 import '../constants.dart';
@@ -12,6 +13,8 @@ class NoteAdd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(CategoryController());
+    TextEditingController noteNameController = TextEditingController();
+    
     return Container(
       color: Colors.white,
       height: context.height * 0.9,
@@ -97,7 +100,7 @@ class NoteAdd extends StatelessWidget {
                                 ),
                                 hintText: '노트이름을 입력하세요',
                                 hintStyle:  TextStyle(fontSize:16,color: Color(0xffA3A3A3))),
-                            controller: TextEditingController(),
+                            controller: noteNameController,
                           ),
                         ],
                       ),
@@ -112,13 +115,18 @@ class NoteAdd extends StatelessWidget {
                 width: context.width,
                 height: 48,
                 margin: const EdgeInsets.all(defaultMargin),
-                child: ElevatedButton(
+                child: GetBuilder<CategoryController>(builder: (controller) {return ElevatedButton(
                   style: ButtonStyle(backgroundColor:MaterialStateProperty.all(beforeClickButton),shadowColor: const MaterialStatePropertyAll(Colors.transparent) ),
                   child: const Text('추가하기',style: TextStyle(color: Colors.white,fontSize:16,fontWeight: FontWeight.bold )),
-                  onPressed: () => {},
-                ),
+                  onPressed: () => {                    
+                    controller.observableBox.getAt(controller.selectedCategoryIndex).addNote(Note(noteName: noteNameController.text, bookMark: true)),
+                    controller.updateCategory(index: controller.selectedCategoryIndex, category: controller.observableBox.getAt(controller.selectedCategoryIndex)),
+
+                    //controller.updateCategory(index: controller.selectedCategoryIndex, category: Category(categoryName: "Test", categoryColorIndex: 3, noteList: [Note(noteName: "Text", bookMark: true)])),
+                  },
+                );}
               ),
-            ),
+            ),)
           ],
         ),
       ),

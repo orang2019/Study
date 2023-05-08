@@ -4,6 +4,7 @@ import 'package:study_app/widget/note_add.dart';
 import '../../controller/category_controller.dart';
 import '../../model/category.dart';
 import '../../model/color_index.dart';
+import '../../model/note.dart';
 
 
 class NoteHome extends StatelessWidget {
@@ -47,26 +48,50 @@ class NoteHome extends StatelessWidget {
     );
   }
 
-  hasCategory(){//수정 필요
+  hasCategory(){
     return GetBuilder<CategoryController>(
-      builder: (controller) => ListView.builder(
-        itemCount: controller.observableBox.length,
-        itemBuilder: (context, index){
-          Category? category = controller.observableBox.getAt(index);            
-          return Card(
-            child: ListTile(
-              onTap: ()=> Get.to(NoteAdd()),
-              title: Text(category?.categoryName?? "N/A"),
-              textColor: colorIndex(category?.categoryColorIndex??1),
-              trailing: IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: () => controller.deleteCategory(index: index),
+      builder: (cont) => DefaultTabController(
+        length: cont.observableBox.length,
+        child: Scaffold(
+          body: Column(
+            children: [
+              TabBar(
+                isScrollable: true,
+                tabs: [
+                  for(int i=0;i<cont.observableBox.length;i++)
+                  Tab(text: cont.observableBox.getAt(i).categoryName),
+                ]
               ),
-            ),
-          );
-        },
-      ), 
+              Expanded(
+                child: TabBarView(
+                  children: [
+                    for(int i=0;i<cont.observableBox.length;i++)
+                    ListView.builder(
+                      itemCount: cont.observableBox.getAt(i).noteList!=null?cont.observableBox.getAt(i).noteList.length:0,
+                      itemBuilder: (context, index){
+                        Note? note = cont.observableBox.getAt(i).noteList[index];
+                        return Card(
+                          child: Row(
+                            children: [
+                              IconButton(
+                                onPressed: (){
+                                  print("Press BookMark");  
+                                  cont.changeNoteBookMark(i, index);
+                                }, icon: note?.bookMark==true? Icon(Icons.star) : Icon(Icons.star_border_outlined),
+                              ),
+                              TextButton(onPressed: (){}, child: Text(note?.noteName??"N/A")),
+                            ],
+                          )
+                        );
+                      },
+                    ),
+                  ]
+                )
+              ),
+            ],
+          )
+        ),
+      ),
     );
   }
-
 }
