@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
   Color(0xffFED36E),
   Color(0xffC4EEC3),
   Color(0xff89DD89),
+  Color(0xffD4E7F1),
   Color(0xff92C3DF),
   Color(0xffF7F3FB),
   Color(0xffF0E2FE),

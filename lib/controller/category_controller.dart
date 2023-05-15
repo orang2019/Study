@@ -1,18 +1,27 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:study_app/model/category.dart';
 import 'package:study_app/repository/box_repository.dart';
+import 'package:study_app/constants.dart';
 
 class CategoryController extends GetxController{
   final Box _observableBox = BoxRepository.getBox();
 
   Box get observableBox => _observableBox;
 
-  RxInt get categoryCount => _observableBox.length.obs;
+  int selectedCategoryIndex = 0;
+  int selectedColorIndex = 0;
+  bool selectedReview = true;
+  String categoryNameText = '';
+  Color validateColor = beforeClickButton;
+  Color beforeColor = beforeClickButton;
+  Color afterColor = afterClickButton;
 
   createCategory({required Category category}){
     _observableBox.add(category);
-    //categoryCount.value++;
     update();
   }
 
@@ -23,8 +32,41 @@ class CategoryController extends GetxController{
 
   deleteCategory({required int index}){
     _observableBox.deleteAt(index);
-    //categoryCount.value--;
     update();
   }
+
+  selectIndex(int i){
+    selectedCategoryIndex = i;
+    update();
+  }
+
+  selectColorIndex(int i){
+    selectedColorIndex = i;
+    update();
+  }
+  selectReview(bool i){
+    selectedReview = i;
+    update();
+  }
+
+
+  changeNoteBookMark(int i, int index){
+    print(observableBox.getAt(i).noteList[index].bookMark);
+    observableBox.getAt(i).noteList[index].bookMark =  observableBox.getAt(i).noteList[index].bookMark==true ? false:true;
+    update();
+  }
+  changeColorButton(bool b){
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if(b){
+          validateColor = beforeClickButton;
+        }else{
+          validateColor = afterClickButton;
+        }
+        update();
+      });
+  }
+
+
+
 
 }

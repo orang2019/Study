@@ -19,7 +19,8 @@ class CategoryAdapter extends TypeAdapter<Category> {
     return Category(
       categoryName: fields[1] as String,
       categoryColorIndex: fields[2] as int,
-    )..noteList = (fields[3] as List?)?.cast<Note>();
+      noteList: (fields[3] as List).cast<Note>(),
+    );
   }
 
   @override
