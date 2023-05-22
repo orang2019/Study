@@ -29,4 +29,3 @@ class Category extends HiveObject{
     noteList.removeAt(index);
   }
 }
-
