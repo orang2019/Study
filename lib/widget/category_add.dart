@@ -75,7 +75,7 @@ class _CategoryAddState extends State<CategoryAdd> {
                                 controller: categoryNameController,
                                 validator: (value){
                                   if(value==null||value.isEmpty){
-                                    return 'Please enter some text';
+                                    return 'Please';
                                   }
                                   return null;
                                 },),
