@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'notemain.dart';
 import 'package:study_app/widget/note_add.dart';
 import '../../controller/category_controller.dart';
 import '../../model/category.dart';
@@ -7,26 +8,57 @@ import '../../model/color_index.dart';
 import '../../model/note.dart';
 
 
-class NoteHome extends StatelessWidget {
+class NoteHome extends StatefulWidget {
   const NoteHome({super.key});
 
   @override
+  State<NoteHome> createState() => _NoteHomeState();
+}
+
+class _NoteHomeState extends State<NoteHome> {
+  @override
   Widget build(BuildContext context) {
     Get.put(CategoryController());
+    late TabController _tabController ;
+
+    // @override
+    // void initState() {
+    //   super.initState();
+    //   _tabController = TabController(vsync: this, length: myTabs.length);
+    // }
+
+    // @override
+    // void dispose() {
+    //   _tabController.dispose();
+    //   super.dispose();
+    // }
+
+
+
     return Scaffold(
+
+
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('카테고리', style: TextStyle(color: Colors.black,fontSize: 20),),
         backgroundColor: Colors.white,
-        shadowColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          actions: [
+            IconButton(onPressed: (){Get.to(noteMain());}, icon: Icon(Icons.edit),color: Colors.black,),
+            IconButton(onPressed: (){}, icon: Icon(Icons.delete),color: Colors.black,)]
       ),
       body:
-      Center(
-          child: GetBuilder<CategoryController>(
-            builder:(controller){
-              return controller.observableBox.length==0?noCategory():hasCategory();
-            },)
+      Container(
+        child: Column(
+          children: [
+            Expanded(
+              child: GetBuilder<CategoryController>(builder:(controller){
+                return controller.observableBox.length==0?noCategory():hasCategory();
+                },),
+            )
+          ],
+        ),
       ),
-      backgroundColor: Colors.white,
+
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         onPressed: () => showModalBottomSheet(
@@ -41,10 +73,18 @@ class NoteHome extends StatelessWidget {
   }
 
   noCategory(){
-    return Center(
-        child: Text('+버튼을 눌러\n새 노트를 추가하세요',
-            style: TextStyle(color: Colors.grey,fontSize: 20),
-            textAlign: TextAlign.center)
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Column(
+        children: [
+          const Text('(카테고리이름)',style: TextStyle(fontSize:20,fontWeight: FontWeight.bold,color: Colors.black),),
+          Center(
+              child: Text('+버튼을 눌러\n새 노트를 추가하세요',
+                  style: TextStyle(color: Colors.grey,fontSize: 20),
+                  textAlign: TextAlign.center)
+          ),
+        ],
+      ),
     );
   }
 
@@ -53,14 +93,27 @@ class NoteHome extends StatelessWidget {
       builder: (cont) => DefaultTabController(
         length: cont.observableBox.length,
         child: Scaffold(
+            backgroundColor: Colors.white,
             body: Column(
               children: [
-                TabBar(
-                    isScrollable: true,
-                    tabs: [
-                      for(int i=0;i<cont.observableBox.length;i++)
-                        Tab(text: cont.observableBox.getAt(i).categoryName),
-                    ]
+                // todo : _tabController 만들어서 i == 현재위치 일때, 고른 색상, text bold체로 변환
+                DefaultTabController(
+                  length: cont.observableBox.length,
+                  child: TabBar(
+                      isScrollable: true,
+                      // controller: _tabController,
+                      indicatorSize: TabBarIndicatorSize.tab,
+                      indicator: BoxDecoration(
+                          borderRadius: BorderRadius.circular(22),
+                          color: const Color(0xffFAD3D3)),
+                      tabs: [
+                        for(int i=0;i<cont.observableBox.length;i++)
+                          Tab(child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(cont.observableBox.getAt(i).categoryName,style: TextStyle(fontSize: 20)), //fontWeight: FontWeight.bold,
+                                ),),
+                      ]
+                  ),
                 ),
                 Expanded(
                     child: TabBarView(
