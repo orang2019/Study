@@ -1,23 +1,23 @@
+import 'package:hive_flutter/hive_flutter.dart';
+
 import 'qa.dart';
 
-class Note{
+part 'note.g.dart';
+@HiveType(typeId: 2)
+class Note extends HiveObject{
+
+  @HiveField(1)
   String noteName;
+  
+  @HiveField(2)
   bool bookMark;
 
-  late List<QA> QAList;
+  @HiveField(3)
+  List<QA> QAList;
 
-  Note({required this.noteName, required this.bookMark});
+  Note({required this.noteName, required this.bookMark, this.QAList = const []});
 
-  addQA(QA qa){
-    QAList.add(qa);
-  }
-  removeQA(QA qa){
-    QAList.remove(qa);
-  }
-  changeNoteName(String newName){
-    noteName = newName;
-  }
-  selectBookMark(){
-    bookMark = !bookMark;
+  stateBookMark(){
+    bookMark !=bookMark;
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:study_app/model/note.dart';
+import 'package:study_app/model/qa.dart';
 import 'routes/page_list.dart';
 import 'package:study_app/model/category.dart';
 import 'package:study_app/repository/box_repository.dart';
@@ -9,6 +11,8 @@ void main() async{
 
   await Hive.initFlutter();
   Hive.registerAdapter(CategoryAdapter());
+  Hive.registerAdapter(NoteAdapter());
+  Hive.registerAdapter(QAAdapter());
   await BoxRepository.openBox();
 
 

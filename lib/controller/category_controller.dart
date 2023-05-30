@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -26,7 +24,7 @@ class CategoryController extends GetxController{
   }
 
   updateCategory({required int index, required Category category}){
-    _observableBox.put(index, category);
+    _observableBox.putAt(index, category);
     update();
   }
 
@@ -49,12 +47,21 @@ class CategoryController extends GetxController{
     update();
   }
 
-
   changeNoteBookMark(int i, int index){
-    print(observableBox.getAt(i).noteList[index].bookMark);
-    observableBox.getAt(i).noteList[index].bookMark =  observableBox.getAt(i).noteList[index].bookMark==true ? false:true;
+    _observableBox.getAt(i).noteList[index].bookMark =  observableBox.getAt(i).noteList[index].bookMark==true ? false:true;
+    _observableBox.putAt(i, Category(categoryName: _observableBox.getAt(i).categoryName, categoryColorIndex: _observableBox.getAt(i).categoryColorIndex, noteList: _observableBox.getAt(i).noteList));
     update();
   }
+
+  deleteNote(i, index){
+    _observableBox.getAt(i).noteList.removeAt(index);
+    _observableBox.put(i, Category(
+      categoryName: _observableBox.getAt(i).categoryName, 
+      categoryColorIndex: _observableBox.getAt(i).categoryColorIndex, 
+      noteList: _observableBox.getAt(i).noteList
+      ));
+  }
+
   changeColorButton(bool b){
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if(b){
@@ -65,8 +72,4 @@ class CategoryController extends GetxController{
         update();
       });
   }
-
-
-
-
 }
