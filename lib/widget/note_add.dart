@@ -17,11 +17,32 @@ class _NoteAddState extends State<NoteAdd> {
   final _formKey = GlobalKey<FormState>(); //for storing form state.
   final controller = Get.put(CategoryController());
   TextEditingController noteNameController = TextEditingController();
+  int count = Get.put(CategoryController()).observableBox.length;
+  List<dynamic> categoryList = [];
+  String? _selectedDropdown;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    for(int i=0;i<count;i++){
+      categoryList.add(controller.observableBox.getAt(i).categoryName);
+    }
+    _selectedDropdown ;
+    print('카테고리이름 추가하고 오면,재랜더링 왜 안되지? ');
+
+    super.initState();
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
 
+
+
     // _selectedCate = controller.observableBox.length==0?'Category':controller.observableBox.getAt(0).categoryName;
+
+
 
 
     return Container(
@@ -46,43 +67,51 @@ class _NoteAddState extends State<NoteAdd> {
                         //카테고리
 
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Align(alignment: Alignment.centerLeft,child: const Text('카테고리',style: TextStyle(fontSize:16,fontWeight: FontWeight.bold,),)),
-                              GetBuilder<CategoryController>(builder:(controller){
-                                return SingleChildScrollView(
-                                  scrollDirection: Axis.horizontal,
-                                  child: Wrap(
-                                      children: [Row(
-                                        children: [
-                                          for(int i=0;i<controller.observableBox.length;i++)
-                                            SizedBox(
-                                                width: 200,
-                                                height: context.height*0.054,
-                                                child: Card(
-                                                  color: i==controller.selectedCategoryIndex ?Colors.amber:Colors.white,
-                                                  elevation: 5.0,
-                                                  child:
-                                                  ListTile( title: Text(controller.observableBox.getAt(i).categoryName),
-                                                      onTap: (){ controller.selectIndex(i);
-                                                    print(controller.selectedCategoryIndex);}
-                                                                      ),
-                                                                    ),)
-                                                            ],
-                                                          ),]
-                                                      ),
-                                                    );
-                                                  }),
-                              ElevatedButton(
-                                style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.white),shadowColor: MaterialStatePropertyAll(Colors.transparent)),
-                                onPressed: (){
-                                  showModalBottomSheet(
-                                      enableDrag: true,
-                                      isDismissible: true, // 바깥영역 눌러도 안사라짐
-                                      isScrollControlled: true,
-                                      context: context,
-                                      builder:(BuildContext context) => const CategoryAdd());
-                                },
-                                child: const Text('+ 카테고리 추가하기', style: TextStyle(color: Colors.black,fontSize:16,fontWeight: FontWeight.bold )),)
+                              const Text('카테고리',style: TextStyle(fontSize:16,fontWeight: FontWeight.bold,)),
+                              SizedBox(
+                                width: context.width,
+                                child: GetBuilder<CategoryController>(builder:(controller){
+                                  return dropdown();
+
+                                  // return SingleChildScrollView(
+                                  //   scrollDirection: Axis.horizontal,
+                                  //   child: Wrap(
+                                  //       children: [Row(
+                                  //         children: [
+                                  //           for(int i=0;i<controller.observableBox.length;i++)
+                                  //             SizedBox(
+                                  //                 width: 200,
+                                  //                 height: context.height*0.054,
+                                  //                 child: Card(
+                                  //                   color: i==controller.selectedCategoryIndex ?Colors.amber:Colors.white,
+                                  //                   elevation: 5.0,
+                                  //                   child:
+                                  //                   ListTile( title: Text(controller.observableBox.getAt(i).categoryName),
+                                  //                       onTap: (){ controller.selectIndex(i);
+                                  //                     print(controller.selectedCategoryIndex);}
+                                  //                                       ),
+                                  //                                     ),)
+                                  //                             ],
+                                  //                           ),]
+                                  //                       ),
+                                  //                     );
+                                                    }),
+                              ),
+                              Center(
+                                child: ElevatedButton(
+                                  style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.white),shadowColor: MaterialStatePropertyAll(Colors.transparent)),
+                                  onPressed: (){
+                                    showModalBottomSheet(
+                                        enableDrag: true,
+                                        isDismissible: true, // 바깥영역 눌러도 안사라짐
+                                        isScrollControlled: true,
+                                        context: context,
+                                        builder:(BuildContext context) => const CategoryAdd());
+                                  },
+                                  child: const Text('+ 카테고리 추가하기', style: TextStyle(color: Colors.black,fontSize:16,fontWeight: FontWeight.bold )),),
+                              )
 
                             ],
                           ),
@@ -97,7 +126,7 @@ class _NoteAddState extends State<NoteAdd> {
                                       decoration: const InputDecoration(
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(color: Color(0xffC9CACC)),),
-                                          hintText: '   노트이름을 입력하세요',
+                                          hintText: '  노트이름을 입력하세요',
                                           hintStyle:  TextStyle(fontSize:16,color: Color(0xffA3A3A3))),
                                       controller: noteNameController,
                                       validator: (value){
@@ -190,34 +219,28 @@ class _NoteAddState extends State<NoteAdd> {
 
 
 
-  //
-  // dropdown(){
-  //
-  //   int count = controller.observableBox.length;
-  //   List<dynamic> categoryList = [];
-  //   for(int i=0;i<count;i++){
-  //     categoryList.add(controller.observableBox.getAt(i).categoryName);
-  //   }
-  //
-  //   if(count==0){
-  //     return const Text("카테고리 없음");
-  //   }
-  //   else{
-  //     return DropdownButton(
-  //       value: _selectedCate,
-  //       items: categoryList.map((item) {
-  //         return DropdownMenuItem(
-  //           value: item,
-  //           child: Text('$item'),
-  //         );
-  //       }).toList(),
-  //       onChanged: (e){setState(() {
-  //         _selectedCate = e;
-  //       });}
-  //     );
-  //   }
-  // }
 
+  dropdown(){
 
+    return DropdownButton(
+              isExpanded: true,
+              elevation: 0,
+              dropdownColor:Colors.white,
+              hint: Text('  카테고리를 선택하세요',style: const TextStyle(fontSize:16,color: Color(0xffA3A3A3)),),
+              disabledHint :  Text('  카테고리를 선택하세요',style: const TextStyle(fontSize:16,color: Color(0xffA3A3A3)),),
+              value: _selectedDropdown,
+              items: categoryList.map((item) {
+                return DropdownMenuItem<String>(
+                  value: item,
+                  child: Text('$item',style: const TextStyle(fontSize:16,color: Color(0xffA3A3A3)),),
+                );
+              }).toList(),
+
+              onChanged: (e){
+                setState(() {
+                  _selectedDropdown = e! ;
+              });}
+    );
+  }
 
 }

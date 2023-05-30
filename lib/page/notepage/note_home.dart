@@ -6,7 +6,7 @@ import '../../controller/category_controller.dart';
 import '../../model/category.dart';
 import '../../model/color_index.dart';
 import '../../model/note.dart';
-
+import 'package:study_app/widget/deletewidget.dart';
 
 class NoteHome extends StatefulWidget {
   const NoteHome({super.key});
@@ -44,7 +44,22 @@ class _NoteHomeState extends State<NoteHome> {
           shadowColor: Colors.transparent,
           actions: [
             IconButton(onPressed: (){Get.to(noteMain());}, icon: Icon(Icons.edit),color: Colors.black,),
-            IconButton(onPressed: (){}, icon: Icon(Icons.delete),color: Colors.black,)]
+
+            GetBuilder<CategoryController>(
+              builder: (controller)=>IconButton(onPressed: (){
+
+                //todo
+
+                showModalBottomSheet(
+                    enableDrag: true,
+                    isDismissible: true, // 바깥영역 눌러도 안사라짐
+                    isScrollControlled: true,
+                    context: context,
+                    builder:(BuildContext context) => const DeleteWidget());
+
+                controller.deleteCategory(index: 0);
+              }, icon: Icon(Icons.delete),color: Colors.black,),)
+          ]
       ),
       body:
       Container(
@@ -76,13 +91,18 @@ class _NoteHomeState extends State<NoteHome> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text('(카테고리이름)',style: TextStyle(fontSize:20,fontWeight: FontWeight.bold,color: Colors.black),),
+          Text('카테고리',style: TextStyle(fontSize:20,color: Colors.black),),
+          SizedBox(height: context.height/3,),
           Center(
-              child: Text('+버튼을 눌러\n새 노트를 추가하세요',
-                  style: TextStyle(color: Colors.grey,fontSize: 20),
-                  textAlign: TextAlign.center)
+            child: Text('+버튼을 눌러\n새 노트를 추가하세요',
+                    style: TextStyle(color: Colors.grey,fontSize: 24),
+                    textAlign: TextAlign.center),
           ),
+
+
         ],
       ),
     );
