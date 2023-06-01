@@ -60,7 +60,6 @@ class NoteAdd extends StatelessWidget {
                                             title: Text(controller.observableBox.getAt(i).categoryName),
                                             onTap: (){
                                               controller.selectIndex(i);
-                                              print(controller.selectedCategoryIndex);
                                             }
                                           ),
                                       ),

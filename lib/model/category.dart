@@ -25,6 +25,10 @@ class Category extends HiveObject{
     noteList.add(note);
   }
 
+  updateNote(int index, Note note){
+    noteList[index] = note;
+  }
+
   deleteNote(int index){
     noteList.removeAt(index);
   }

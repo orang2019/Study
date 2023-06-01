@@ -17,7 +17,8 @@ class Note extends HiveObject{
 
   Note({required this.noteName, required this.bookMark, this.QAList = const []});
 
-  stateBookMark(){
-    bookMark !=bookMark;
+  addQA(QA qa){
+    QAList.add(qa);
+
   }
 }

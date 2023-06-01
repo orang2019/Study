@@ -10,10 +10,11 @@ class CategoryController extends GetxController{
 
   Box get observableBox => _observableBox;
 
-  int selectedCategoryIndex = 0;
-  int selectedColorIndex = 0;
-  bool selectedReview = true;
-  String categoryNameText = '';
+  int selectedCategoryIndex = 0; //노트 추가 시 선택된 카테고리 번호
+  int selectedColorIndex = 0;    //카테고리 추가시 선택된 색 번호
+  
+
+
   Color validateColor = beforeClickButton;
   Color beforeColor = beforeClickButton;
   Color afterColor = afterClickButton;
@@ -40,10 +41,6 @@ class CategoryController extends GetxController{
 
   selectColorIndex(int i){
     selectedColorIndex = i;
-    update();
-  }
-  selectReview(bool i){
-    selectedReview = i;
     update();
   }
 

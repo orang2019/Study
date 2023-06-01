@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:study_app/page/notepage/note_quiz.dart';
 import 'package:study_app/widget/note_add.dart';
 import '../../controller/category_controller.dart';
 import '../../model/note.dart';
@@ -62,7 +63,7 @@ class NoteHome extends StatelessWidget {
               isScrollable: true,
               tabs: [
                 for(int i=0;i<cont.observableBox.length;i++)
-                  Tab(text: cont.observableBox.getAt(i).categoryName),
+                  Tab(text: cont.observableBox.getAt(i).categoryName, ),
               ]
             ),
           ),
@@ -89,19 +90,23 @@ class NoteHome extends StatelessWidget {
                                   cont.changeNoteBookMark(i, index);
                                 }, icon: note.bookMark==true? Icon(Icons.star) : Icon(Icons.star_border_outlined),
                               ),
-                              TextButton(onPressed: (){}, child: Text(note.noteName??"N/A")),
+                              TextButton(onPressed: ()=>showModalBottomSheet(
+                                enableDrag: true,
+                                isDismissible: false,
+                                isScrollControlled: true,
+                                context: context,
+                                builder:(BuildContext context) => NoteQuiz(i: i, index: index),
+                              ), child: Text(note.noteName??"N/A")),
                             ],
                           )
                         ),
                       );
                     },
                   ),
-                  
               ]
             ),
           )
         ),
-        
     );
   }
 }
