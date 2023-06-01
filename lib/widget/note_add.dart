@@ -18,20 +18,7 @@ class _NoteAddState extends State<NoteAdd> {
   final controller = Get.put(CategoryController());
   TextEditingController noteNameController = TextEditingController();
   int count = Get.put(CategoryController()).observableBox.length;
-  List<dynamic> categoryList = [];
   String? _selectedDropdown;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    for(int i=0;i<count;i++){
-      categoryList.add(controller.observableBox.getAt(i).categoryName);
-    }
-    _selectedDropdown ;
-    print('카테고리이름 추가하고 오면,재랜더링 왜 안되지? ');
-
-    super.initState();
-  }
 
 
 
@@ -72,31 +59,33 @@ class _NoteAddState extends State<NoteAdd> {
                               const Text('카테고리',style: TextStyle(fontSize:16,fontWeight: FontWeight.bold,)),
                               SizedBox(
                                 width: context.width,
-                                child: GetBuilder<CategoryController>(builder:(controller){
-                                  return dropdown();
 
-                                  // return SingleChildScrollView(
-                                  //   scrollDirection: Axis.horizontal,
-                                  //   child: Wrap(
-                                  //       children: [Row(
-                                  //         children: [
-                                  //           for(int i=0;i<controller.observableBox.length;i++)
-                                  //             SizedBox(
-                                  //                 width: 200,
-                                  //                 height: context.height*0.054,
-                                  //                 child: Card(
-                                  //                   color: i==controller.selectedCategoryIndex ?Colors.amber:Colors.white,
-                                  //                   elevation: 5.0,
-                                  //                   child:
-                                  //                   ListTile( title: Text(controller.observableBox.getAt(i).categoryName),
-                                  //                       onTap: (){ controller.selectIndex(i);
-                                  //                     print(controller.selectedCategoryIndex);}
-                                  //                                       ),
-                                  //                                     ),)
-                                  //                             ],
-                                  //                           ),]
-                                  //                       ),
-                                  //                     );
+
+                                child: GetBuilder<CategoryController>(builder:(controller){
+                                  List categoryList = [];
+                                  for(int i=0;i<Get.put(CategoryController()).observableBox.length;i++){
+                                    categoryList.add(controller.observableBox.getAt(i).categoryName);
+                                  }
+                                  return DropdownButton(
+                                      isExpanded: true,
+                                      elevation: 0,
+                                      dropdownColor:Colors.white,
+                                      hint: Text('  카테고리를 선택하세요',style: const TextStyle(fontSize:16,color: Color(0xffA3A3A3)),),
+                                      disabledHint :  Text('  카테고리를 선택하세요',style: const TextStyle(fontSize:16,color: Color(0xffA3A3A3)),),
+                                      value: _selectedDropdown,
+                                      items: categoryList.map((item) {
+                                        return DropdownMenuItem<String>(
+                                          value: item,
+                                          child: Text('$item',style: const TextStyle(fontSize:16,color: Color(0xffA3A3A3)),),
+                                        );
+                                      }).toList(),
+
+                                      onChanged: (e){
+                                        setState(() {
+                                          _selectedDropdown = e! ;
+                                        });}
+                                  );
+
                                                     }),
                               ),
                               Center(
@@ -215,32 +204,6 @@ class _NoteAddState extends State<NoteAdd> {
              ),
             ],
     )));
-  }
-
-
-
-
-  dropdown(){
-
-    return DropdownButton(
-              isExpanded: true,
-              elevation: 0,
-              dropdownColor:Colors.white,
-              hint: Text('  카테고리를 선택하세요',style: const TextStyle(fontSize:16,color: Color(0xffA3A3A3)),),
-              disabledHint :  Text('  카테고리를 선택하세요',style: const TextStyle(fontSize:16,color: Color(0xffA3A3A3)),),
-              value: _selectedDropdown,
-              items: categoryList.map((item) {
-                return DropdownMenuItem<String>(
-                  value: item,
-                  child: Text('$item',style: const TextStyle(fontSize:16,color: Color(0xffA3A3A3)),),
-                );
-              }).toList(),
-
-              onChanged: (e){
-                setState(() {
-                  _selectedDropdown = e! ;
-              });}
-    );
   }
 
 }
