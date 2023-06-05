@@ -16,7 +16,6 @@ class BottomTabBar extends GetView<BottomTabBarController> {
 
           backgroundColor: Colors.white,
           selectedItemColor: Colors.black,
-          // unselectedItemColor: Color(0xffA3A3A3), //grey400 //todo : 없앨지말지 혜인
           selectedLabelStyle: const TextStyle(fontSize: 12),
           unselectedLabelStyle: const TextStyle(fontSize: 12),
 

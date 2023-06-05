@@ -78,19 +78,3 @@ class NoteQuiz extends StatelessWidget {
   }
 }
 
-
-// Align(
-//           alignment: Alignment.topCenter,
-//           child:  const Text('(노트이름)', style: TextStyle(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold,))),
-
-//       backgroundColor: Colors.white,
-//       floatingActionButton: FloatingActionButton(
-//         backgroundColor: Colors.black,
-//         onPressed: () => showModalBottomSheet(
-//             enableDrag: true,
-//             isDismissible: false,
-//             isScrollControlled: true,
-//             context: context,
-//             builder:(BuildContext context) => QaAdd(categoryIndex: i, noteIndex: index,)),
-//         child: const Icon(Icons.add),
-//       ),

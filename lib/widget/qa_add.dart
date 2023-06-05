@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:study_app/controller/category_controller.dart';
-import 'package:study_app/model/category.dart';
 import 'package:study_app/model/note.dart';
 import 'package:study_app/model/qa.dart';
 

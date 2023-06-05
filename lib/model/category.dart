@@ -17,10 +17,6 @@ class Category extends HiveObject{
 
   Category({required this.categoryName, required this.categoryColorIndex, required this.noteList});
 
-  getNoteList(){
-    return noteList;
-  }
-
   addNote(Note note){
     noteList.add(note);
   }

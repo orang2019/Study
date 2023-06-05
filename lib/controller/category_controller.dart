@@ -13,7 +13,7 @@ class CategoryController extends GetxController{
   int selectedCategoryIndex = 0; //노트 추가 시 선택된 카테고리 번호
   int selectedColorIndex = 0;    //카테고리 추가시 선택된 색 번호
   
-
+  bool selectedReview = true;
 
   Color validateColor = beforeClickButton;
   Color beforeColor = beforeClickButton;

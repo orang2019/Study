@@ -19,6 +19,5 @@ class Note extends HiveObject{
 
   addQA(QA qa){
     QAList.add(qa);
-
   }
 }
