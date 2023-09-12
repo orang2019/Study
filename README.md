@@ -1,7 +1,7 @@
 # 암기를 빠르게 도와주는 앱
 ---
 # 프로젝트 소개
-Project nickname : study
+Project nickname : study  
 Project execution period : 2023.03 ~
 
 study는 빠른 암기가 필요한 사람들을 위한 시스템으로, 단기 암기를 장기 암기로 바꿔 오래 기억할 수 있게 만든다.
