@@ -23,7 +23,7 @@ TabBar는 4개로 구성되어 있다.
 ### 두 번째 TabBar
 
 단기 암기가 가능하다.  
-안다, 모른다를 클릭하는 방법으로 문제의 답을 맞춘다.  
+'O(안다)', 'X(모른다)' 버튼을 클릭하는 방법으로 문제의 답을 맞춘다.  
 
 <img width="274" alt="image" src="https://github.com/orang2019/STUDY/assets/76255901/697aaa9a-22bf-4d02-bded-2a9597e37c2d">
 
