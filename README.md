@@ -9,6 +9,9 @@ study는 빠른 암기가 필요한 사람들을 위한 시스템으로, 단기 
 시장에는 이미 단기암기를 위한 암기앱과 장기 암기를 위한 복습앱이 출시되어 있다. 그러나 하나의 앱에서 암기와 복습을 동시에 해결할 수 있는 앱이 없다.
 따라서 단기암기를 장기암기로 바꾸는 체계적인 암기앱이 필요하다.
 
+TabBar는 4개로 구성되어 있으며, 첫 번째 TabBar는 문제를 만들고 저장하는 공간이다. 두 번째 Tab
+
+
 ---
 ### 두 번째 TabBar
 
@@ -34,7 +37,7 @@ study는 빠른 암기가 필요한 사람들을 위한 시스템으로, 단기 
 * 기기간 실시간 데이터 연동 ( 키보드 기기가 있는 MacBook, iPad ) 와 ( iPhone )
 
 2. 다양한 입력 방식
-* csv , 엑셀 파일로 입력
+* csv, 엑셀 파일로 입력
 * 이미지
 * 사진 촬영 후 text 자동 인식
 * 기기간 실시간 복사&붙여넣기
@@ -51,8 +54,21 @@ study는 빠른 암기가 필요한 사람들을 위한 시스템으로, 단기 
 
 # 시작 가이드
 ---
+## dependencies
 
+```dart
+dependencies:
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  get:
+  flutter:
+    sdk: flutter
 
+dev_dependencies:
+  build_runner : ^2.3.3
+  hive_generator: ^2.0.0
+  flutter_test:
+    sdk: flutter
 
-
+```
 
