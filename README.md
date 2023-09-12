@@ -12,24 +12,32 @@ study는 빠른 암기가 필요한 사람들을 위한 시스템으로, 단기 
 # 사용 방법
 
 TabBar는 4개로 구성되어 있다.
-첫 번째 TabBar에서 문제를 만들고 저장한다.
-두 번째 TabBar에서 안다, 모른다를 클릭하는 방법으로 문제의 답을 맞춘다.
-세 번째 TabBar에서 오늘 복습할 문제를 확인하고 암기 한다.
-네 번째 TabBar에서 문제 출제 순서를 변경한다. (랜덤,오름차순,내림차순)
-
 
 ---
+### 첫 번째 TabBar
+문제를 만들고 저장한다.
+
+<img width="248" alt="image" src="https://github.com/orang2019/STUDY/assets/76255901/4fe0bcb7-d6fe-4ded-aea0-2b44af8a9d0b">
+
+
 ### 두 번째 TabBar
 
-단기 암기가 가능하다. 
+단기 암기가 가능하다.
+안다, 모른다를 클릭하는 방법으로 문제의 답을 맞춘다.  
 
 <img width="274" alt="image" src="https://github.com/orang2019/STUDY/assets/76255901/697aaa9a-22bf-4d02-bded-2a9597e37c2d">
 
 ### 세 번째 TabBar
 
 장기 암기가 가능하다.
+오늘 복습할 문제를 확인하고 암기 한다. 
 
 <img width="637" alt="image" src="https://github.com/orang2019/STUDY/assets/76255901/c62df9ac-8307-4fbb-8e4a-32cb23995dd3">
+
+### 네 번째 TabBar
+문제 출제 방식을 선택한다.
+
+<img width="207" alt="image" src="https://github.com/orang2019/STUDY/assets/76255901/5dc538c8-d0e5-4325-85b4-d4acca8f7e40">
 
 ---
 
