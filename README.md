@@ -89,6 +89,5 @@ dev_dependencies:
 
 # 팀원
 uiux 디자인 : 고지혜, 김혜인  
-
 front-end : 고지혜, 정지원
 
