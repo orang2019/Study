@@ -29,7 +29,7 @@ O(안다),X(모른다) 버튼을 클릭하는 방법으로 문제의 답을 맞�
 
 ### 세 번째 TabBar
 
-장기 암기가 가능하다.
+장기 암기가 가능하다.  
 오늘 복습할 문제를 확인하고 암기 한다. 
 
 <img width="637" alt="image" src="https://github.com/orang2019/STUDY/assets/76255901/c62df9ac-8307-4fbb-8e4a-32cb23995dd3">
